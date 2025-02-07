@@ -1,0 +1,153 @@
+---
+const videos = [
+  { url: "https://vimeo.com/70816821", thumbnail: "/assets/thumbnails/Sabrina.png" },
+  { url: "https://vimeo.com/123645245", thumbnail: "/assets/thumbnails/Deadbeat2.png" },
+  { url: "https://vimeo.com/305156831", thumbnail: "/assets/thumbnails/Saniparro2.png" },
+  { url: "https://vimeo.com/44053987", thumbnail: "/assets/thumbnails/huboom.png" },
+];
+
+let activeVideo: string | null = null;
+
+const handleVideoClick = (url: string) => {
+  activeVideo = url;
+};
+---
+
+<section class="video-section">
+  <div class="videos-grid">
+    {videos.map((video) => (
+      <div
+        class="video-card"
+        data-video-url={video.url}
+        role="button"
+        tabindex="0"
+        aria-label="Play video"
+      >
+        <img src={video.thumbnail} alt="Video thumbnail" class="video-thumbnail" />
+      </div>
+    ))}
+  </div>
+
+  <div class="fullscreen-overlay hidden" id="videoOverlay">
+    <div class="video-wrapper">
+      <iframe
+        id="vimeoPlayer"
+        src=""
+        width="100%"
+        height="100%"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initializeVideoPlayers() {
+    const videoCards = document.querySelectorAll('.video-card');
+    const overlay = document.getElementById('videoOverlay');
+    const vimeoPlayer = document.getElementById('vimeoPlayer');
+
+    videoCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const videoUrl = card.getAttribute('data-video-url');
+        if (vimeoPlayer && overlay && videoUrl) {
+          // Convert Vimeo URL to embed URL
+          const vimeoId = videoUrl.split('/').pop();
+          vimeoPlayer.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1`;
+          overlay.classList.remove('hidden');
+        }
+      });
+    });
+
+    overlay?.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.add('hidden');
+        if (vimeoPlayer) vimeoPlayer.src = ''; // Reset iframe source
+      }
+    });
+  }
+
+  // Initialize when the DOM is ready
+  document.addEventListener('DOMContentLoaded', initializeVideoPlayers);
+</script>
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+
+  .video-section {
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .video-card {
+    position: relative;
+    cursor: pointer;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .video-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1rem;
+  }
+
+  .fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-wrapper {
+    width: 80%;
+    height: 80vh;
+    max-width: 1280px;
+    position: relative;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+  }
+
+  .fullscreen-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: -1;
+  }
+</style>

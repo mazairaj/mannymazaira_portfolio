@@ -1,0 +1,62 @@
+---
+import Icon from './Icon.astro';
+---
+
+<section class="box skills">
+	<div class="stack gap-2 lg:gap-4">
+		<Icon icon="video-editing" color="var(--accent-regular)" size="2.5rem" gradient />
+		<h2>Motion Graphics & VFX</h2>
+		<p>Expert in creating compelling motion graphics and visual effects for broadcast, streaming, and digital platforms.</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon icon="davinci-resolve" color="var(--accent-regular)" size="2.5rem" gradient />
+		<h2>3D Design</h2>
+		<p>Proficient in creating 3D animations and designs using industry-standard tools and techniques.</p>
+	</div>
+	<div class="stack gap-2 lg:gap-4">
+		<Icon icon="microphone-stage" color="var(--accent-regular)" size="2.5rem" gradient />
+		<h2>Audio & Synthesis</h2>
+		<p>Experienced in modular synthesis and audio design, bringing an additional creative dimension to projects.</p>
+	</div>
+</section>
+
+<style>
+	.box {
+		border: 1px solid var(--gray-800);
+		border-radius: 0.75rem;
+		padding: 1.5rem;
+		background-color: var(--gray-999_40);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.skills {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+
+	.skills h2 {
+		font-size: var(--text-lg);
+	}
+
+	.skills p {
+		color: var(--gray-400);
+	}
+
+	@media (min-width: 50em) {
+		.box {
+			border-radius: 1.5rem;
+			padding: 2.5rem;
+		}
+
+		.skills {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 5rem;
+		}
+
+		.skills h2 {
+			font-size: var(--text-2xl);
+		}
+	}
+</style>

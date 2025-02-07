@@ -1,0 +1,247 @@
+---
+interface Skill {
+  name: string;
+  percentage: number;
+  icon: string;
+  isFA?: boolean;
+}
+
+const skills: Skill[] = [
+  { name: 'Motion Graphics', percentage: 95, icon: 'video-editing' },
+  { name: '3D Design', percentage: 90, icon: 'fa-cubes', isFA: true },
+  { name: 'Generative AI', percentage: 85, icon: 'fa-brain', isFA: true },
+  { name: 'Character Animation', percentage: 90, icon: 'fa-person-running', isFA: true },
+  { name: 'Modular Synthesis', percentage: 80, icon: 'microphone-stage' },
+];
+
+// Import Font Awesome CSS
+import '@fortawesome/fontawesome-free/css/all.css';
+
+const tools = [
+  { 
+    name: 'After Effects', 
+    percentage: 95, 
+    icon: 'fa-film',
+    isFA: true
+  },
+  { 
+    name: 'Cinema 4D', 
+    percentage: 90, 
+    icon: 'fa-cube',
+    isFA: true
+  },
+  { 
+    name: 'Photoshop', 
+    percentage: 92,
+    icon: 'fa-image',
+    isFA: true
+  },
+  { 
+    name: 'Illustrator', 
+    percentage: 88, 
+    icon: 'fa-pen-nib',
+    isFA: true
+  },
+  { 
+    name: 'MidJourney', 
+    percentage: 85, 
+    icon: 'fa-robot',
+    isFA: true
+  },
+  { 
+    name: 'Houdini', 
+    percentage: 80, 
+    icon: 'fa-wand-magic-sparkles',
+    isFA: true
+  }
+];
+
+import Icon from './Icon.astro';
+import { Fragment } from 'astro/components';
+---
+
+<div class="skills-container">
+  <h2>Tools</h2>
+  <div class="skills-grid">
+    {tools.map((tool) => (
+      <div class="skill-card">
+        <div class="skill-icon" style={tool.color ? `--icon-color: #${tool.color}` : ''}>
+          {tool.isFA ? (
+            <i class={`fas ${tool.icon}`}></i>
+          ) : typeof tool.icon === 'string' ? (
+            <Icon icon={tool.icon} size="1.5em" />
+          ) : (
+            <Fragment set:html={tool.icon} />
+          )}
+        </div>
+        <div class="skill-info">
+          <span class="skill-name">{tool.name}</span>
+          <div class="progress-bar">
+            <div 
+              class="progress" 
+              style={`width: ${tool.percentage}%`}
+              data-percentage={tool.percentage}
+            >
+              <span class="percentage">{tool.percentage}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    {skills.map((skill) => (
+      <div class="skill-card">
+        <div class="skill-icon">
+          {skill.isFA ? (
+            <i class={`fas ${skill.icon}`}></i>
+          ) : (
+            <Icon icon={skill.icon} size="1.5em" />
+          )}
+        </div>
+        <div class="skill-info">
+          <span class="skill-name">{skill.name}</span>
+          <div class="progress-bar">
+            <div 
+              class="progress" 
+              style={`width: ${skill.percentage}%`}
+              data-percentage={skill.percentage}
+            >
+              <span class="percentage">{skill.percentage}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .skills-container {
+    background: var(--gray-999_40);
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    color: var(--gray-0);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  h2:not(:first-child) {
+    margin-top: 2rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .skill-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--gray-999);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .skill-card:hover {
+    transform: translateX(0.5rem);
+  }
+
+  .skill-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--icon-color, var(--gradient-accent));
+    border-radius: 0.5rem;
+    color: var(--gray-999);
+  }
+
+  .skill-icon :global(svg) {
+    width: 1.5em;
+    height: 1.5em;
+    fill: currentColor;
+  }
+
+  .skill-info {
+    flex: 1;
+  }
+
+  .skill-name {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--gray-200);
+    margin-bottom: 0.25rem;
+  }
+
+  .progress-bar {
+    height: 0.5rem;
+    background: var(--gray-800);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress {
+    height: 100%;
+    background: var(--gradient-accent);
+    border-radius: 999px;
+    position: relative;
+    animation: fillProgress 1s ease-out forwards;
+    transform-origin: left;
+  }
+
+  .percentage {
+    position: absolute;
+    right: 0.25rem;
+    top: -1.25rem;
+    font-size: var(--text-xs);
+    color: var(--gray-200);
+  }
+
+  @keyframes fillProgress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (min-width: 50em) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  // Add intersection observer to trigger animations when skills become visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.progress').forEach(progress => {
+          progress.style.animation = 'none';
+          progress.offsetHeight; // Trigger reflow
+          progress.style.animation = 'fillProgress 1s ease-out forwards';
+        });
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  document.querySelectorAll('.skills-container').forEach(container => {
+    observer.observe(container);
+  });
+</script>

@@ -1,0 +1,76 @@
+---
+interface Props {
+  videoUrl: string;
+  title: string;
+}
+
+const { videoUrl, title } = Astro.props;
+
+// Extract video ID from YouTube or Vimeo URL
+const getVideoId = (url: string) => {
+  // YouTube regex (including Shorts)
+  const youtubeRegExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?v=)|(shorts\/))([^#&?]*).*/;
+  const youtubeMatch = url.match(youtubeRegExp);
+  if (youtubeMatch && youtubeMatch[8].length > 0) {
+    return { platform: 'youtube', id: youtubeMatch[8] };
+  }
+
+  // Vimeo regex
+  const vimeoRegExp = /(?:vimeo\.com\/|player\.vimeo\.com\/video\/)([0-9]+)/;
+  const vimeoMatch = url.match(vimeoRegExp);
+  if (vimeoMatch && vimeoMatch[1]) {
+    return { platform: 'vimeo', id: vimeoMatch[1] };
+  }
+
+  return null;
+};
+
+const videoData = getVideoId(videoUrl);
+---
+
+<div class="video-wrapper">
+  {videoData ? (
+    <iframe
+      src={videoData.platform === 'youtube' 
+        ? `https://www.youtube.com/embed/${videoData.id}?rel=0&modestbranding=1&showinfo=0`
+        : `https://player.vimeo.com/video/${videoData.id}?dnt=1`}
+      title={title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  ) : (
+    <div class="error-message">Invalid video URL</div>
+  )}
+</div>
+
+<style>
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--gray-999);
+    box-shadow: var(--shadow-sm);
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0.75rem;
+  }
+
+  .error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gray-300);
+    font-size: var(--text-lg);
+  }
+</style>
