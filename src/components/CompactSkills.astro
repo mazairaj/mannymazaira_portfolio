@@ -71,7 +71,7 @@ import { Fragment } from 'astro/components';
           ) : typeof tool.icon === 'string' ? (
             <Icon icon={tool.icon} size="1.5em" />
           ) : (
-            <Fragment set:html={tool.icon} />
+            <span set:html={tool.icon} />
           )}
         </div>
         <div class="skill-info">
