@@ -33,7 +33,7 @@ const videoData = getVideoId(videoUrl);
     <iframe
       src={videoData.platform === 'youtube' 
         ? `https://www.youtube.com/embed/${videoData.id}?rel=0&modestbranding=1&showinfo=0`
-        : `https://player.vimeo.com/video/${videoData.id}?dnt=1`}
+        : `https://player.vimeo.com/video/${videoData.id}?dnt=1&controls=play,pause&title=0&byline=0&portrait=0`}
       title={title}
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen

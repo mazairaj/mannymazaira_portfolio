@@ -10,7 +10,7 @@
   <div class="gradient-overlay"></div>
   <div class="blend-edges"></div>
   <div class="scroll-prompt">
-    <button class="scroll-button" onclick="scrollToSection()">Scroll Down</button>
+    <button class="scroll-button" data-scroll-button>View Work</button>
   </div>
 </div>
 
@@ -40,7 +40,6 @@
     width: 100%;
     height: 100%;
     background: radial-gradient(
-      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       var(--accent-light) 0%,
       var(--accent-regular) 25%,
       var(--accent-dark) 50%,
@@ -82,26 +81,71 @@
   }
 
   .scroll-button {
-    background: var(--accent-regular, #ff5722);
-    color: #fff;
+    margin-bottom: 25px;
+    background: transparent;
+    color: var(--accent-regular, #ff5722);
     padding: 12px 24px;
-    border: none;
+    border: 2px solid var(--accent-regular, #ff5722);
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .scroll-button:hover {
-    background: var(--accent-dark, #e64a19);
+    background: rgba(255, 87, 34, 0.1); /* Using accent-regular with 10% opacity */
     transform: translateY(-4px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    /* ... other styles ... */
+  }
+
+  @media (min-width: 50em) {
+    .interactive-background {
+      width: 100vw;
+    }
   }
 </style>
 
 <script>
+  // Function to handle scrolling
+  function handleScroll() {
+    const nextSection = document.querySelector('.work-with-me');
+    if (nextSection) {
+      // Add offset to account for the header (adjust this value as needed)
+      const headerOffset = 150; // Increased from 100 to 150 pixels
+      const offset = nextSection.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  // Function to initialize scroll button
+  function initScrollButton() {
+    const scrollButton = document.querySelector('[data-scroll-button]');
+    if (scrollButton) {
+      scrollButton.addEventListener('click', handleScroll);
+    }
+  }
+
+  // Initialize on page load and after Astro view transitions
+  document.addEventListener('astro:page-load', initScrollButton);
+
+  // Initialize on first load
+  if (document.readyState === 'complete') {
+    initScrollButton();
+  } else {
+    document.addEventListener('DOMContentLoaded', initScrollButton);
+  }
+
+  // Background initialization code
   function initBackground() {
     const background = document.querySelector('.interactive-background');
 
@@ -121,7 +165,6 @@
         }
       };
 
-      // Add mousemove event to the entire hero section
       const heroSection = document.querySelector('.hero');
       if (heroSection) {
         heroSection.addEventListener('mousemove', updateGradient);
@@ -129,20 +172,11 @@
     }
   }
 
-  // Initialize on page load and after Astro view transitions
   document.addEventListener('astro:page-load', initBackground);
 
-  // Initialize on first load
   if (document.readyState === 'complete') {
     initBackground();
   } else {
     document.addEventListener('DOMContentLoaded', initBackground);
-  }
-
-  function scrollToSection() {
-    const nextSection = document.querySelector('.work-with-me'); // Replace with your next section's selector
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
   }
 </script>

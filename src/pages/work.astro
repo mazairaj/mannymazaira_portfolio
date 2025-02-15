@@ -86,7 +86,9 @@ const otherWorks = [
 >
 	<div class="stack gap-20">
 		<main class="wrapper stack gap-8">
-			<YouTubeVideos videos={youtubeVideos} />
+			<div class="youtube-section">
+				<YouTubeVideos videos={youtubeVideos} />
+			</div>
 			<Reels reels={reels} />
 		</main>
 		<ContactCTA />
@@ -104,5 +106,19 @@ const otherWorks = [
 		.section-title {
 			font-size: var(--text-3xl);
 		}
+	}
+
+	.work-video-section {
+		margin: 4rem 0;
+	}
+
+	@media (min-width: 50em) {
+		.work-video-section {
+			margin: 6rem 0;
+		}
+	}
+
+	.youtube-section {
+		padding-top: 4rem;
 	}
 </style>

@@ -230,7 +230,7 @@ h5 {
   gap: 7.5rem;
 }
 .gap-48 {
-  gap: 12rem;
+  gap: 10rem;
 }
 
 /* Animations */
@@ -287,6 +287,6 @@ h5 {
     gap: 7.5rem;
   }
   .lg\:gap-48 {
-    gap: 12rem;
+    gap: 10rem;
   }
 }

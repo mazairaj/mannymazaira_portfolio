@@ -62,21 +62,25 @@ const reels = [
 		<main class="wrapper stack gap-20 lg:gap-48">
 			<section class="section with-background with-cta">
 				<header class="section-header work-with-me stack gap-2 lg:gap-4">
-					<h3>Let's Create Together</h3>
-					<p>Take a look below at some of my featured work for clients from the past few years.</p>
+					<h3>Let's Co-Create</h3>
+					<p>Bring your designs to life.</p>
+					<div class="cta-container">
+						<CallToAction href="mailto:leakedthought@gmail.com">
+							Connect with me
+							<Icon icon="arrow-right" size="1.2em" />
+						</CallToAction>
+						<CallToAction href="/assets/ManuelMazairaResume_2025.pdf">
+							Download Resume
+							<Icon icon="arrow-right" size="1.2em" />
+						</CallToAction>
+					</div>
 				</header>
 
 				<div class="gallery">
 					<YouTubeVideos videos={youtubeVideos} />
-					<Reels reels={reels} />
 				</div>
 
-				<div class="cta">
-					<CallToAction href="/work/">
-						View All
-						<Icon icon="arrow-right" size="1.2em" />
-					</CallToAction>
-				</div>
+
 			</section>
 		</main>
 
@@ -89,6 +93,9 @@ const reels = [
 	.section {
 		display: grid;
 		gap: 2rem;
+	}
+
+	.wrapper {
 	}
 
 	.with-background {
@@ -125,6 +132,8 @@ const reels = [
 		max-width: 50ch;
 		font-size: var(--text-md);
 		color: var(--gray-300);
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.section-header h3 {
@@ -139,12 +148,13 @@ const reels = [
 		}
 
 		.section.with-cta {
-			grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
+			grid-template-areas: 'header header header header' 'gallery gallery gallery gallery';
 		}
 
 		.section-header {
 			grid-area: header;
 			font-size: var(--text-lg);
+			justify-self: center;
 		}
 
 		.section-header h3 {
@@ -152,8 +162,8 @@ const reels = [
 		}
 
 		.with-cta .section-header {
-			justify-self: flex-start;
-			text-align: left;
+			justify-self: center;
+			text-align: center;
 		}
 
 		.gallery {
@@ -163,5 +173,17 @@ const reels = [
 		.cta {
 			grid-area: cta;
 		}
+	}
+
+	.cta-container {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+	}
+
+	:global(.cta-container a) {
+		font-size: var(--text-sm);
+		padding: 0.5rem 1rem;
 	}
 </style>
