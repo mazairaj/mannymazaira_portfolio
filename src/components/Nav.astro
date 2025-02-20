@@ -240,6 +240,12 @@ const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[]
   transform: scale(1.1);
 }
 
+/* Add this media query */
+@media (max-width: 50em) {
+  .logo {
+    margin-top: -20px;
+  }
+}
 
 	.logo:hover {
 		transform: scale(1.1);
