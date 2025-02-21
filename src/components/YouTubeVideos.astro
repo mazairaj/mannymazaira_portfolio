@@ -1,6 +1,16 @@
 ---
+interface Props {
+  videos?: {
+    url: string;
+    thumbnail: string;
+  }[];
+}
+
+const { videos = [] } = Astro.props;
+
 // Get current URL path
 const currentPath = Astro.url.pathname;
+console.log("Current path:", currentPath); // Debug log
 
 const baseVideos = [
   { url: "https://vimeo.com/70816821", thumbnail: "/assets/thumbnails/Sabrina.png" },
@@ -11,8 +21,7 @@ const baseVideos = [
   { url: "https://vimeo.com/290963763", thumbnail: "/assets/thumbnails/iamlife.png" },
 ];
 
-const workVideos = [ 
-  ...baseVideos,
+const additionalWorkVideos = [
   { url: "https://vimeo.com/159290990", thumbnail: "/assets/thumbnails/voltage-control.png" },
   { url: "https://vimeo.com/257751262", thumbnail: "/assets/thumbnails/lucid-vibe.png" },
   { url: "https://vimeo.com/232424141", thumbnail: "/assets/thumbnails/infinit.png" },
@@ -21,11 +30,13 @@ const workVideos = [
   { url: "https://vimeo.com/303822777", thumbnail: "/assets/thumbnails/birds.png" },
   { url: "https://vimeo.com/232423426", thumbnail: "/assets/thumbnails/ignite.png" },
   { url: "https://vimeo.com/38044780", thumbnail: "/assets/thumbnails/soldier.png" },
-  // Add more videos as needed
 ];
 
-// Use workVideos (which contains all videos) for both /work and /view-all routes
-const videos = ['/work', '/view-all'].includes(currentPath) ? workVideos : baseVideos;
+// Determine which videos to show based on the current path
+const isWorkPage = currentPath === '/work';
+const displayVideos = isWorkPage ? [...videos, ...additionalWorkVideos] : videos;
+
+console.log("Number of videos being shown:", displayVideos.length);
 
 let activeVideo: string | null = null;
 
@@ -36,7 +47,7 @@ const handleVideoClick = (url: string) => {
 
 <section class="video-section">
   <div class="videos-grid">
-    {videos.map((video) => (
+    {displayVideos.map((video) => (
       <div
         class="video-card"
         data-video-url={video.url}
