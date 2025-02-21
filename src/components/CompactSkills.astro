@@ -125,6 +125,9 @@ import { Fragment } from 'astro/components';
     border-radius: 0.75rem;
     padding: 1.5rem;
     box-shadow: var(--shadow-sm);
+    margin: 0 auto;  /* Changed from '0 1rem' to '0 auto' for centering */
+    max-width: 90rem;
+    width: calc(100% - 2rem);  /* Add this to maintain margins on smaller screens */
   }
 
   h2 {
@@ -221,6 +224,10 @@ import { Fragment } from 'astro/components';
   @media (min-width: 50em) {
     .skills-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skills-container {
+      width: calc(100% - 5rem);  /* Update width calculation for desktop margins */
     }
   }
 </style>

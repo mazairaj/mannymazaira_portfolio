@@ -31,9 +31,6 @@ import Icon from '../components/Icon.astro';
 				</div>
 			</section>
 			<section>
-				<h3 class="section-title">Reason for career switches</h3>
-				<p>Over the past three years, I have intentionally sought out diverse opportunities across different companies to explore and experiment with my abilities in various creative streams. This journey has allowed me to gain a well-rounded perspective and invaluable experiences in multiple facets of the industry. Through this process, I have discovered a deep passion for video editing and creative direction, solidifying my decision to pursue these roles professionally. Additionally, I have recognized my love for music, which I have decided to continue as a cherished hobby. </p>
-				<br>
 				<h2 class="section-title">Experience</h2>
 				<div class="content">
 					<p>FX Networks: Motion Graphics Animator / VFX Artist 2021-2023</p>
@@ -53,7 +50,7 @@ import Icon from '../components/Icon.astro';
 			</Button>
 		</div> -->
 
-		<ContactCTA />
+		<!-- <ContactCTA /> -->
 	</div>
 </BaseLayout>
 
@@ -63,6 +60,9 @@ import Icon from '../components/Icon.astro';
 		flex-direction: column;
 		gap: 3.5rem;
 		margin-top: 10rem;
+		max-width: 80rem;
+		margin: 10rem auto 0;
+		padding: 0 1.5rem;
 	}
 
 	section {
@@ -95,6 +95,9 @@ import Icon from '../components/Icon.astro';
 		.about {
 			display: grid;
 			grid-template-columns: 1fr 60% 1fr;
+			max-width: 80rem;
+			padding: 0 2.5rem;
+			margin: 10rem auto 0;
 		}
 
 		.about > :global(:first-child) {

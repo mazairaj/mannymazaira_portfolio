@@ -78,6 +78,12 @@ const reels = [
 
 				<div class="gallery">
 					<YouTubeVideos videos={youtubeVideos} />
+					<div class="view-all-container">
+						<a href="/work" class="scroll-button">
+							View All
+							<Icon icon="arrow-right" size="1.2em" />
+						</a>
+					</div>
 				</div>
 
 
@@ -85,7 +91,7 @@ const reels = [
 		</main>
 
 		<CompactSkills />
-		<ContactCTA />
+		<!-- <ContactCTA /> -->
 	</div>
 </BaseLayout>
 
@@ -93,9 +99,14 @@ const reels = [
 	.section {
 		display: grid;
 		gap: 2rem;
+		max-width: 90rem;
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.wrapper {
+		width: 100%;
+		margin: 0;
 	}
 
 	.with-background {
@@ -185,5 +196,34 @@ const reels = [
 	:global(.cta-container a) {
 		font-size: var(--text-sm);
 		padding: 0.5rem 1rem;
+	}
+
+	.view-all-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
+	}
+
+	.scroll-button {
+		margin-bottom: 25px;
+		background: transparent;
+		color: var(--accent-regular, #ff5722);
+		padding: 12px 24px;
+		border: 2px solid var(--accent-regular, #ff5722);
+		border-radius: 8px;
+		font-size: 16px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
+	.scroll-button:hover {
+		background: rgba(255, 87, 34, 0.1);
+		transform: translateY(-4px);
+		box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 	}
 </style>

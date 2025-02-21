@@ -1,5 +1,8 @@
 ---
-const videos = [
+// Get current URL path
+const currentPath = Astro.url.pathname;
+
+const baseVideos = [
   { url: "https://vimeo.com/70816821", thumbnail: "/assets/thumbnails/Sabrina.png" },
   { url: "https://vimeo.com/123645245", thumbnail: "/assets/thumbnails/Deadbeat2.png" },
   { url: "https://vimeo.com/305156831", thumbnail: "/assets/thumbnails/Saniparro2.png" },
@@ -7,6 +10,22 @@ const videos = [
   { url: "https://vimeo.com/309928655", thumbnail: "/assets/thumbnails/vibWithAsh.png" },
   { url: "https://vimeo.com/290963763", thumbnail: "/assets/thumbnails/iamlife.png" },
 ];
+
+const workVideos = [ 
+  ...baseVideos,
+  { url: "https://vimeo.com/159290990", thumbnail: "/assets/thumbnails/voltage-control.png" },
+  { url: "https://vimeo.com/257751262", thumbnail: "/assets/thumbnails/lucid-vibe.png" },
+  { url: "https://vimeo.com/232424141", thumbnail: "/assets/thumbnails/infinit.png" },
+  { url: "https://vimeo.com/48539348", thumbnail: "/assets/thumbnails/huboom-peek.png" },
+  { url: "https://vimeo.com/123645246", thumbnail: "/assets/thumbnails/deadbeat.png" },
+  { url: "https://vimeo.com/303822777", thumbnail: "/assets/thumbnails/birds.png" },
+  { url: "https://vimeo.com/232423426", thumbnail: "/assets/thumbnails/ignite.png" },
+  { url: "https://vimeo.com/38044780", thumbnail: "/assets/thumbnails/soldier.png" },
+  // Add more videos as needed
+];
+
+// Use workVideos (which contains all videos) for both /work and /view-all routes
+const videos = ['/work', '/view-all'].includes(currentPath) ? workVideos : baseVideos;
 
 let activeVideo: string | null = null;
 
@@ -88,9 +107,15 @@ const handleVideoClick = (url: string) => {
   .videos-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
     padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .videos-grid {
+      gap: 2rem;
+    }
   }
 
   .video-card {

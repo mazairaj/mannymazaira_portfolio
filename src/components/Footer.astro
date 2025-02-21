@@ -4,13 +4,6 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-	<div class="group">
-		<p>
-			Video Editing by Manny Mazaira 
-			<Icon icon="rocket-launch" size="1.2em" />
-		</p>
-		<p>&copy; {currentYear} Manny Mazaira</p>
-	</div>
 	<div class="socials">
 		<a href="https://www.instagram.com/mannymazaira.media" aria-label="Instagram">
 			<Icon icon="instagram-logo" size="1.5em" />
@@ -21,22 +14,46 @@ const currentYear = new Date().getFullYear();
 	</div>
 </footer>
 
+<script>
+	function updateFooterPosition() {
+		const footer = document.querySelector('footer');
+		if (!footer) return;
+		
+		const windowHeight = window.innerHeight;
+		const documentHeight = document.documentElement.scrollHeight;
+		const shouldBeFixed = documentHeight <= windowHeight;
+		
+		footer.style.position = shouldBeFixed ? 'fixed' : 'relative';
+		footer.style.marginTop = shouldBeFixed ? '0' : '8rem';
+	}
+
+	// Update on load, resize, and content changes
+	window.addEventListener('load', updateFooterPosition);
+	window.addEventListener('resize', updateFooterPosition);
+	
+	// Create observer to watch for content changes
+	const observer = new MutationObserver(updateFooterPosition);
+	observer.observe(document.body, { 
+		childList: true, 
+		subtree: true 
+	});
+</script>
+
 <style>
 	footer {
 		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		margin-top: auto;
-		padding: 3rem 2rem 3rem;
+		justify-content: center;
+		padding: 2rem;
 		text-align: center;
 		color: var(--gray-400);
-		font-size: var(--text-sm);
-	}
-
-	.group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+		border-top: 1px solid var(--gray-800);
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		background-color: var(--gray-999);
+		z-index: 100;
+		transition: position 0.3s ease;
 	}
 
 	.socials {
@@ -56,15 +73,7 @@ const currentYear = new Date().getFullYear();
 
 	@media (min-width: 50em) {
 		footer {
-			flex-direction: row;
-			justify-content: space-between;
-			padding: 2.5rem 5rem;
-		}
-
-		.group {
-			flex-direction: row;
-			gap: 1rem;
-			flex-wrap: wrap;
+			padding: 2rem 5rem;
 		}
 	}
 </style>

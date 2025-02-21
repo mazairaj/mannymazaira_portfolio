@@ -38,7 +38,8 @@ const youtubeVideos = [
   {
     title: "Panchathanthiram - Scenes Reaction",
     url: "https://www.youtube.com/watch?v=H_kvU7PCyek"
-  }
+  },
+  
 ];
 
 const reels = [
@@ -85,13 +86,12 @@ const otherWorks = [
 	description="Learn about Manny Mazaira's most recent projects"
 >
 	<div class="stack gap-20">
-		<main class="wrapper stack gap-8">
+		<main class="wrapper stack gap-8" style="max-width: 90rem; margin: 0 auto;">
 			<div class="youtube-section">
 				<YouTubeVideos videos={youtubeVideos} />
 			</div>
-			<Reels reels={reels} />
 		</main>
-		<ContactCTA />
+		<!-- <ContactCTA /> -->
 	</div>
 </BaseLayout>
 
